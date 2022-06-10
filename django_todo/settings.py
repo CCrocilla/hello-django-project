@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import os
 import dj_database_url
+import os
+if os.path.exists("env.py"):
+    import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w-lr%1t0)a8vw8kfzi=bjp2c*ft_=i1d60spqnq_-c5s6!%5ox'
+DJANGO_SECRET_KEY = os.environ.get("DJANGO")
+
+SECRET_KEY = DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,8 +87,10 @@ WSGI_APPLICATION = 'django_todo.wsgi.application'
 #     }
 # }
 
+POSTGRES_SECRET_KEY = os.environ.get("POSTGRES_URI")
+
 DATABASES = {
-    'default': dj_database_url.parse('postgres://iinyzgzrzapiiv:b725f1df0f1722c99b5d2b471860bf669b9cfe2cc0a04f1bf2fd9ef7dfb4ba3b@ec2-52-18-116-67.eu-west-1.compute.amazonaws.com:5432/d67g9cna4ftn3i')
+    'default': dj_database_url.parse(POSTGRES_SECRET_KEY)
 }
 
 
