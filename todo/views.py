@@ -57,6 +57,7 @@ def edit_item(request, item_id):
 
 
 def toggle_item(request, item_id):
+    """ Toggle """
     item = get_object_or_404(Item, id=item_id)
     item.done = not item.done
     item.save()
@@ -64,6 +65,7 @@ def toggle_item(request, item_id):
 
 
 def delete_item(request, item_id):
+    """ Delete """
     item = get_object_or_404(Item, id=item_id)
     item.delete()
     return redirect('get_todo_list')
